@@ -3,14 +3,12 @@
 #include <string>
 #include <variant>
 
-#include <typeinfo>
-
 #define SENTINAL "exit"
 #define TO_SOLVE "?"
 
 bool getInput(std::variant<std::string, float>* toOut);
 //Try to find better way to do this, psuedo define
-bool qUsed = false;
+bool qUsed;
 
 int main(){
 
@@ -28,6 +26,7 @@ int main(){
 		std::variant<std::string, float> varArr[4];
 		int solvedIndex;
 		float solvedVar;
+		qUsed = false;
 
 		for(int i = 0; i < 4; i++){
 
@@ -47,32 +46,34 @@ int main(){
 		for(int i = 0; i < 4; i++) {
 
 			if(auto value = std::get_if<std::string>(&varArr[i])){
+
 				solvedIndex = i;
-				//std::cout << stringArr[i] << " : " << *value << " " << i << std::endl;
-				//[3] = [1]([0][2])
-				
-				if (i = 0) {
-					solvedVar = (std::get<float>(varArr[3]) / std::get<float>(varArr[1])) / std::get<float>(varArr[2]);
+
+				auto value0 = std::get_if<float>(&varArr[0]);
+				auto value1 = std::get_if<float>(&varArr[1]);
+				auto value2 = std::get_if<float>(&varArr[2]);
+				auto value3 = std::get_if<float>(&varArr[3]);
+
+				//i changes to 1 when this if starts??
+				if(i = 0) {
+					solvedVar = (*value3 / *value1) * *value2;
 				} else if (i = 1) {
-					solvedVar = std::get<float>(varArr[3]) / (std::get<float>(varArr[0]) * std::get<float>(varArr[2]));
+					solvedVar = *value3 / (*value0 / *value2);
 				} else if (i = 2) {
-					solvedVar = (std::get<float>(varArr[3]) / std::get<float>(varArr[1])) / std::get<float>(varArr[0]);
+					solvedVar = *value0 / (*value3 / *value1);
 				} else {
-					solvedVar = std::get<float>(varArr[1]) * std::get<float>(varArr[0]) * std::get<float>(varArr[2]);
+					solvedVar = *value1 * (*value0 / *value2);
 				}
 				
 				break;
 			
 			}
-			/*else if(auto value = std::get_if<float>(&varArr[i])){
-				//std::cout << stringArr[i] << " : " << *value << " " << i << std::endl;
-			}*/
 			
 		}
 
 		//Display
 
-		std::cout << solvedVar << std::endl;
+		//std::cout << solvedVar << std::endl;
 		std::cin;
 
 	}
@@ -91,7 +92,6 @@ bool getInput(std::variant<std::string, float>* toOut){
 	try {
 
 		*toOut = std::stof(userIn);
-		std::cout << "Type of " << typeid(std::stof(userIn)).name() << std::endl;
 
 	} catch(std::invalid_argument) {
 	
