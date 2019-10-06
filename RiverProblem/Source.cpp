@@ -54,12 +54,11 @@ int main(){
 				auto value2 = std::get_if<float>(&varArr[2]);
 				auto value3 = std::get_if<float>(&varArr[3]);
 
-				//i changes to 1 when this if starts??
-				if(i = 0) {
+				if(i == 0) {
 					solvedVar = (*value3 / *value1) * *value2;
-				} else if (i = 1) {
+				} else if (i == 1) {
 					solvedVar = *value3 / (*value0 / *value2);
-				} else if (i = 2) {
+				} else if (i == 2) {
 					solvedVar = *value0 / (*value3 / *value1);
 				} else {
 					solvedVar = *value1 * (*value0 / *value2);
@@ -73,7 +72,7 @@ int main(){
 
 		//Display
 
-		//std::cout << solvedVar << std::endl;
+		std::cout << solvedVar << std::endl;
 		std::cin;
 
 	}
