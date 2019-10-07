@@ -9,6 +9,7 @@
 bool getInput(std::variant<std::string, float>* toOut);
 //Try to find better way to do this, psuedo define
 bool qUsed;
+bool restart = false;
 
 int main(){
 
@@ -27,6 +28,7 @@ int main(){
 		int solvedIndex;
 		float solvedVar;
 		qUsed = false;
+		restart = false;
 
 		for(int i = 0; i < 4; i++){
 
@@ -35,6 +37,9 @@ int main(){
 				break;
 
 		}
+
+		if(restart)
+			continue;
 
 		if(!qUsed){
 			
@@ -84,8 +89,10 @@ bool getInput(std::variant<std::string, float>* toOut){
 	std::string userIn;
 	std::cin >> userIn;
 
-	if(userIn == SENTINAL)
+	if(userIn == SENTINAL){
+		restart = true; 
 		return false;
+	}
 		//Invalid from for loop, find diff way
 
 	try {
