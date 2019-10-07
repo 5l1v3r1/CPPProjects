@@ -6,10 +6,7 @@
 #define SENTINAL "exit"
 #define TO_SOLVE "?"
 
-bool getInput(std::variant<std::string, float>* toOut);
-//Try to find better way to do this, psuedo define
-bool qUsed;
-bool restart = false;
+bool getInput(std::variant<std::string, float>* toOut, bool* restart, bool* qUsed);
 
 int main(){
 
@@ -27,19 +24,23 @@ int main(){
 		std::variant<std::string, float> varArr[4];
 		int solvedIndex;
 		float solvedVar;
-		qUsed = false;
-		restart = false;
+		bool qUsed = false;
+		bool restart = false;
 
 		for(int i = 0; i < 4; i++){
 
 			std::cout << stringArr[i] << " : ";
-			if(!getInput(&varArr[i]))
+			if(!getInput(&varArr[i], &restart, &qUsed))
 				break;
 
 		}
 
-		if(restart)
+		if(restart){
+			
+			std::cout << std::endl;
 			continue;
+		
+		}
 
 		if(!qUsed){
 			
@@ -84,16 +85,15 @@ int main(){
 
 }
 
-bool getInput(std::variant<std::string, float>* toOut){
+bool getInput(std::variant<std::string, float>* toOut, bool* restart, bool* qUsed){
 
 	std::string userIn;
 	std::cin >> userIn;
 
 	if(userIn == SENTINAL){
-		restart = true; 
+		*restart = true; 
 		return false;
 	}
-		//Invalid from for loop, find diff way
 
 	try {
 
@@ -101,12 +101,12 @@ bool getInput(std::variant<std::string, float>* toOut){
 
 	} catch(std::invalid_argument) {
 	
-		if(userIn == TO_SOLVE && !qUsed){
+		if(userIn == TO_SOLVE && !*qUsed){
 			*toOut = TO_SOLVE;
-			qUsed = true;
+			*qUsed = true;
 		} else {
 			std::cout << "Invalid, please try again : ";
-			getInput(toOut);
+			getInput(toOut, restart, qUsed);
 		}
 
 	}
