@@ -32,7 +32,7 @@ int main(){
 
 		for(int i = 0; i < 4; i++){
 
-			std::cout << stringArr[i] << " :" << std::endl;
+			std::cout << stringArr[i] << " : ";
 			if(!getInput(&varArr[i]))
 				break;
 
@@ -77,9 +77,9 @@ int main(){
 
 		//Display
 
-		std::cout << solvedVar << std::endl;
-		std::cin;
-
+		//Make the stringArr to lower.
+		std::cout << std::endl << "The " + stringArr[solvedIndex] + " is equal to " << solvedVar << std::endl << std::endl;
+		
 	}
 
 }
@@ -105,7 +105,7 @@ bool getInput(std::variant<std::string, float>* toOut){
 			*toOut = TO_SOLVE;
 			qUsed = true;
 		} else {
-			std::cout << "Invalid, please try again :" << std::endl;
+			std::cout << "Invalid, please try again : ";
 			getInput(toOut);
 		}
 
