@@ -25,7 +25,10 @@ int main(){
 	};
 
 	//Welcome text, use positive numbers for appropriate
-	//Add units for each string
+	
+	std::cout << "Welcome to the river problem solver!" << std::endl << std::endl
+		<< "Enter a \"?\" when you are promtped for the variable you'd like to solve for." << std::endl
+		<< "If you mess up while entering variables simply type in \"exit\"." << std::endl << std::endl;
 
 	while(true){
 
