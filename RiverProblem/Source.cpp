@@ -17,7 +17,15 @@ int main(){
 		"Distance Downstream to the Boat Landing"
 	};
 
+	std::string unitsArr[4] = {
+		"(m)",
+		"(m/s)",
+		"(m/s)",
+		"(m)"
+	};
+
 	//Welcome text, use positive numbers for appropriate
+	//Add units for each string
 
 	while(true){
 
@@ -29,7 +37,7 @@ int main(){
 
 		for(int i = 0; i < 4; i++){
 
-			std::cout << stringArr[i] << " : ";
+			std::cout << stringArr[i] << " " << unitsArr[i] << " : ";
 			if(!getInput(&varArr[i], &restart, &qUsed))
 				break;
 
@@ -79,7 +87,8 @@ int main(){
 		//Display
 
 		//Make the stringArr to lower.
-		std::cout << std::endl << "The " + stringArr[solvedIndex] + " is equal to " << solvedVar << std::endl << std::endl;
+		std::cout << std::endl << "The " + stringArr[solvedIndex] + " is equal to " << solvedVar 
+			<< " " << unitsArr[solvedIndex] << std::endl << std::endl;
 		
 	}
 
@@ -100,12 +109,12 @@ bool getInput(std::variant<std::string, float>* toOut, bool* restart, bool* qUse
 		*toOut = std::stof(userIn);
 
 	} catch(std::invalid_argument) {
-	
+
 		if(userIn == TO_SOLVE && !*qUsed){
 			*toOut = TO_SOLVE;
 			*qUsed = true;
 		} else {
-			std::cout << "Invalid, please try again : ";
+			std::cout << "\rInvalid, please try again : ";
 			getInput(toOut, restart, qUsed);
 		}
 
