@@ -17,6 +17,7 @@ class ElevatorManager {
 	public:
 		unsigned int floors;
 		//Make array :(;
+		//2D array to hold tokens and which has the token?
 		std::vector<bool> tokens;
 
 		ElevatorManager(unsigned int floors) {
@@ -38,7 +39,7 @@ class ElevatorManager {
 				tokens[floorNum] = false;
 				return true;
 			}
-				return false;
+			return false;
 
 		}
 
@@ -55,6 +56,9 @@ class Elevator {
 		Elevator(unsigned int capacity) {
 			this->capacity = capacity;
 		}
+
+	private:
+		std::vector<bool> tokens;
 
 };
 
