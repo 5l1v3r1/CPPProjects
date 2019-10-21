@@ -28,7 +28,7 @@ class ElevatorManager {
 		}
 
 		void addElevator(unsigned int capacity) {
-			elevators.push_back();
+			elevators.push_back(Elevator(capacity));
 		}
 
 		bool passToken(unsigned int elevatorNum, unsigned int floorNum) {
