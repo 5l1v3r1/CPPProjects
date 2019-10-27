@@ -6,19 +6,33 @@
 #include <iostream>
 #include <vector>
 
-int main() {
+enum directions {down = -1, indiff = 0, up = 1};
 
-	std::cout << "Hello";
+class Elevator {
 
-}
+	public:
+		unsigned int capacity;
+		unsigned int currentFloor = 0;
+		std::vector<unsigned int> targetFloors;
+		directions direction = indiff;
+
+		Elevator(unsigned int capacity) {
+			this->capacity = capacity;
+		}	
+
+};
+
+struct Call {
+
+	unsigned int FromFloor;
+	unsigned int TargetFloor;
+
+};
 
 class ElevatorManager {
 
 	public:
 		unsigned int floors;
-		//Make array :(;
-		//2D array to hold tokens and which has the token?
-		std::vector<bool> tokens;
 
 		ElevatorManager(unsigned int floors) {
 			this->floors = floors;
@@ -28,18 +42,40 @@ class ElevatorManager {
 			elevators.push_back(toAdd);
 		}
 
-		void addElevator(unsigned int capacity) {
+		void addElevator(unsigned int capacity = 10) {
 			elevators.push_back(Elevator(capacity));
 		}
 
-		bool passToken(unsigned int elevatorNum, unsigned int floorNum) {
+		void StartElevatorSequence() {
+			
+			const int NumberOfElevators = elevators.size();
+			bool TerminateSequence = false;
 
-			floorNum = floorNum < floors ? floorNum : floors;
-			if(tokens[floorNum]) {
-				tokens[floorNum] = false;
-				return true;
+			std::vector<Call> callStack;
+
+			while(!TerminateSequence) {
+				
+				//addToCallStack
+
+				for(int i = 0; i < NumberOfElevators; i++){
+					
+					Elevator curElevator = elevators[i];
+					
+					// Move according to last turns direction
+					curElevator.currentFloor = curElevator.currentFloor + curElevator.direction > floors ?
+						floors : curElevator.currentFloor + curElevator.direction;
+
+					// Drop off
+
+					//Pick up
+
+					// Calculate new direction
+
+				}
+
 			}
-			return false;
+
+			//StopElevatorSequence
 
 		}
 
@@ -48,19 +84,15 @@ class ElevatorManager {
 
 };
 
-class Elevator {
+int main() {
 
-	public:
-		unsigned int capacity;
+	ElevatorManager manager = ElevatorManager(10);
+	manager.addElevator();
+	manager.addElevator();
 
-		Elevator(unsigned int capacity) {
-			this->capacity = capacity;
-		}
 
-	private:
-		std::vector<bool> tokens;
 
-};
+}
 
 /*
 10 floors
