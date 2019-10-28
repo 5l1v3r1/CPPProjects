@@ -56,22 +56,117 @@ class ElevatorManager {
 			while(!TerminateSequence) {
 				
 				//addToCallStack
+				//Assume all are valid, though if diff is 0 it should be ok.
+
+				//Temp
+				Call temp;
+				temp.FromFloor = 0;
+				temp.TargetFloor = 2;
+				callStack.push_back(temp);
+				Call temp2;
+				temp2.FromFloor = 0;
+				temp2.TargetFloor = 3;
+				callStack.push_back(temp2);
+				//
 
 				for(int i = 0; i < NumberOfElevators; i++){
 					
-					Elevator curElevator = elevators[i];
+					Elevator& curElevator = elevators[i];
 					
+					//TEMP
+					std::cout << "Cur : " << curElevator.currentFloor << " + " << curElevator.direction << std::endl;
+
 					// Move according to last turns direction
-					curElevator.currentFloor = curElevator.currentFloor + curElevator.direction > floors ?
-						floors : curElevator.currentFloor + curElevator.direction;
+					curElevator.currentFloor = curElevator.currentFloor + curElevator.direction;
+					if(curElevator.currentFloor >= floors){
+						curElevator.currentFloor = floors;
+						curElevator.direction = down;
+					} else if(curElevator.currentFloor <= 0) {
+						curElevator.currentFloor = 0;
+						curElevator.direction = up;
+					}
+
+					//TEMP
+					std::cout << "At floor " << curElevator.currentFloor << std::endl;
 
 					// Drop off
+					for(int j = 0; j < curElevator.targetFloors.size(); j++){
+						if(curElevator.targetFloors[j] == curElevator.currentFloor){
+							curElevator.targetFloors.erase(curElevator.targetFloors.begin() + j);
+							j--;
+						}
+					}
+
+					/*
+					//TEMP
+					for (int j = 0; j < curElevator.targetFloors.size(); j++) {
+						std::cout << "Passenger : " << curElevator.targetFloors[j] << std::endl;
+					}
+					*/
 
 					//Pick up
+					for (int j = 0; j < callStack.size(); j++) {
+						if (callStack[j].FromFloor == curElevator.currentFloor && findCallDir(callStack[j]) == curElevator.direction){
+
+							curElevator.targetFloors.push_back(callStack[j].TargetFloor);
+							callStack.erase(callStack.begin() + j);
+							j--;
+
+						}
+					}
+
+					/*
+					//TEMP
+					for (int j = 0; j < curElevator.targetFloors.size(); j++) {
+						std::cout << "Passenger : " << curElevator.targetFloors[j] << std::endl;
+					}
+					*/
 
 					// Calculate new direction
+					if(curElevator.targetFloors.size() == 0){
+						
+						int favoredDir = 0;
+						for(auto e : elevators){
+							favoredDir += e.direction;
+						}
+
+						if(favoredDir > 0){
+							curElevator.direction = down;
+						} else if(favoredDir < 0) {
+							curElevator.direction = up;
+						} else {
+						
+							//TO ADD
+							//Go through call stack
+
+							//TEMP
+							curElevator.direction = up;
+
+						}
+
+					}
+
+					//Recheck current floor
+					for (int j = 0; j < callStack.size(); j++) {
+						if (callStack[j].FromFloor == curElevator.currentFloor && findCallDir(callStack[j]) == curElevator.direction) {
+
+							curElevator.targetFloors.push_back(callStack[j].TargetFloor);
+							callStack.erase(callStack.begin() + j);
+							j--;
+
+						}
+					}
+
+					//TEMP
+					for (int j = 0; j < curElevator.targetFloors.size(); j++) {
+						std::cout << "Passenger : " << curElevator.targetFloors[j] << std::endl;
+					}
+					std::cout << curElevator.direction << std::endl;
 
 				}
+
+				//TEMP
+				std::cin >> TerminateSequence;
 
 			}
 
@@ -82,15 +177,24 @@ class ElevatorManager {
 	private:
 		std::vector<Elevator> elevators;
 
+		directions findCallDir(Call call){
+			if(call.TargetFloor - call.FromFloor > 0){
+				return up;
+			} else {
+				return down;
+			}
+		}
+
 };
 
 int main() {
 
-	ElevatorManager manager = ElevatorManager(10);
+	ElevatorManager manager = ElevatorManager(9);
 	manager.addElevator();
-	manager.addElevator();
+	//manager.addElevator();
+	manager.StartElevatorSequence();
 
-
+	std::cin.get();
 
 }
 
