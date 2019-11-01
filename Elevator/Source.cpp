@@ -57,7 +57,7 @@ class ElevatorManager {
 				
 				//addToCallStack
 				//Assume all are valid, though if diff is 0 it should be ok.
-
+					
 				//Temp
 				Call temp;
 				temp.FromFloor = 0;
@@ -136,11 +136,16 @@ class ElevatorManager {
 							curElevator.direction = up;
 						} else {
 						
-							//TO ADD
-							//Go through call stack
+								int callsBelow = 0, callsAbove = 0;
+								for(int i = 0; i < callStack.size(); i++){
+										if(callStack[i].FromFloor <= curElevator.currentFloor){
+												callsAbove++;
+										} else {
+												callsBelow++;
+										}
+								}
 
-							//TEMP
-							curElevator.direction = up;
+								curElevator.currentFloor = callsAbove >= callsBelow ? up : down;
 
 						}
 
