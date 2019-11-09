@@ -43,7 +43,7 @@ class ElevatorManager {
 		}
 
 		void addElevator(unsigned int capacity = 10) {
-			elevators.push_back(Elevator(capacity));
+			elevators.emplace_back(Elevator(capacity));
 		}
 
 		void StartElevatorSequence() {
@@ -57,18 +57,21 @@ class ElevatorManager {
 				
 				//addToCallStack
 				//Assume all are valid, though if diff is 0 it should be ok.
-					
-				//Temp
-				Call temp;
-				temp.FromFloor = 0;
-				temp.TargetFloor = 2;
-				callStack.push_back(temp);
-				Call temp2;
-				temp2.FromFloor = 0;
-				temp2.TargetFloor = 3;
-				callStack.push_back(temp2);
-				//
+				while(true) {
+				
+					std::cout << "Would you like to add a new call? (Y/N) ";
+					std::string userIn;
+					std::cin >> userIn;
 
+					if(userIn[0] == 'y'){					
+						callStack.push_back(getNewCall());
+					} else {
+						break;
+					}
+
+				}
+			
+				//Indv elevator logic
 				for(int i = 0; i < NumberOfElevators; i++){
 					
 					Elevator& curElevator = elevators[i];
@@ -136,16 +139,16 @@ class ElevatorManager {
 							curElevator.direction = up;
 						} else {
 						
-								int callsBelow = 0, callsAbove = 0;
-								for(int i = 0; i < callStack.size(); i++){
-										if(callStack[i].FromFloor <= curElevator.currentFloor){
-												callsAbove++;
-										} else {
-												callsBelow++;
-										}
+							int callsBelow = 0, callsAbove = 0;
+							for(int i = 0; i < callStack.size(); i++){
+								if(callStack[i].FromFloor >= curElevator.currentFloor){
+									callsAbove++;
+								} else {
+									callsBelow++;
 								}
+							}
 
-								curElevator.currentFloor = callsAbove >= callsBelow ? up : down;
+							curElevator.currentFloor = callsAbove >= callsBelow ? up : down;
 
 						}
 
@@ -171,11 +174,27 @@ class ElevatorManager {
 				}
 
 				//TEMP
+				std::cout << "0 to Cont? ";
 				std::cin >> TerminateSequence;
 
 			}
 
 			//StopElevatorSequence
+
+		}
+
+		Call getNewCall(){
+			
+			Call toRet;
+
+			//Add in security checks for invalid values.
+			std::cout << "Enter the passengers current floor. ";
+			std::cin >> toRet.FromFloor;
+
+			std::cout << "Enter the passengers target floor. ";
+			std::cin >> toRet.TargetFloor;
+
+			return toRet;
 
 		}
 
