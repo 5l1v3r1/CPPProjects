@@ -6,10 +6,14 @@ class Elevator {
 
 public:
 	unsigned int capacity;
-	unsigned int currentFloor;
+	unsigned int currentFloor = 0;
 	std::vector<unsigned int> targetFloors;
-	directions direction = indiff;
+	directions direction = up;
 
 	Elevator(unsigned int capacity);
+
+	void moveElevator(const unsigned int maxFloor);
+	
+	void dropOffTargets();
 
 };

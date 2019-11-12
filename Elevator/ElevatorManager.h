@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Elevator.h"
+
 struct Call {
 
 	unsigned int FromFloor;
@@ -16,11 +18,12 @@ public:
 
 	void addElevator(Elevator toAdd);
 
-	void addElevator(unsigned int capacity = 10);
+	void addElevator(unsigned int capacity);
 
-	void StartElevatorSequence();
+	void startElevatorSequence();
 
-	Call getNewCall();
+	//From here on can likely be private.
+	void addToCallStack(std::vector<Call> &callStack);
 
 private:
 	std::vector<Elevator> elevators;

@@ -3,85 +3,95 @@
 #include "Elevator.h"
 #include "ElevatorManager.h"
 
-class ElevatorManager {
+ElevatorManager::ElevatorManager(unsigned int floors) {
+	this->floors = floors;
+}
 
-public:
-	unsigned int floors;
+void ElevatorManager::addElevator(Elevator toAdd) {
+	elevators.push_back(toAdd);
+}
 
-	ElevatorManager(unsigned int floors) {
-		this->floors = floors;
+void ElevatorManager::addElevator(unsigned int capacity = 10) {
+	elevators.emplace_back(Elevator(capacity));
+}
+
+void ElevatorManager::startElevatorSequence() {
+
+	const int NumberOfElevators = elevators.size();
+	bool TerminateSequence = false;
+
+	std::vector<Call> callStack;
+
+	while(!TerminateSequence) {
+
+		//Calc and stored favoured dir
+
+		//Indv Elevator logic
+		for(int i = 0; i < NumberOfElevators; i++) {
+
+			Elevator& curElevator = elevators[i];
+			
+			curElevator.moveElevator(floors);
+			curElevator.dropOffTargets();
+
+		}
+
+		//TEMP
+		std::cout << "Continue sequence? (1/0) ";
+		std::cin >> TerminateSequence;
+		TerminateSequence = !TerminateSequence;
+		//ENDTEMP
+
 	}
 
-	void addElevator(Elevator toAdd) {
-		elevators.push_back(toAdd);
+}
+
+void ElevatorManager::addToCallStack(std::vector<Call>& callStack) {
+
+	//Assume all are valid, though if diff is 0 it should be ok.
+	while(true) {
+
+		std::cout << "Would you like to add a new call? (Y/N) ";
+		std::string userIn;
+		std::cin >> userIn;
+
+		if(userIn[0] == 'y') {
+
+			Call toAdd;
+
+			//Add in security checks for invalid values.
+			//In this case goto could be useful.
+			//Also allow to break from here.
+			std::cout << "Enter the passengers current floor. ";
+			std::cin >> toAdd.FromFloor;
+
+			std::cout << "Enter the passengers target floor. ";
+			std::cin >> toAdd.TargetFloor;
+
+			callStack.emplace_back(toAdd);
+
+		} else {
+			break;
+		}
+
 	}
 
-	void addElevator(unsigned int capacity = 10) {
-		elevators.emplace_back(Elevator(capacity));
+}
+
+directions ElevatorManager::findCallDir(Call call) {
+
+	if(call.TargetFloor - call.FromFloor > 0) {
+		return up;
+	} else {
+		return down;
 	}
 
-	void StartElevatorSequence() {
+}
 
-		const int NumberOfElevators = elevators.size();
-		bool TerminateSequence = false;
+// FINISH REFACTOR
+/*
 
-		std::vector<Call> callStack;
-
-		while (!TerminateSequence) {
-
-			//addToCallStack
-			//Assume all are valid, though if diff is 0 it should be ok.
-			while (true) {
-
-				std::cout << "Would you like to add a new call? (Y/N) ";
-				std::string userIn;
-				std::cin >> userIn;
-
-				if (userIn[0] == 'y') {
-					callStack.push_back(getNewCall());
-				} else {
-					break;
-				}
-
-			}
-
-			//Indv elevator logic
-			for (int i = 0; i < NumberOfElevators; i++) {
-
-				Elevator& curElevator = elevators[i];
-
-				//TEMP
-				std::cout << "Cur : " << curElevator.currentFloor << " + " << curElevator.direction << std::endl;
-
-				// Move according to last turns direction
-				curElevator.currentFloor = curElevator.currentFloor + curElevator.direction;
-				if (curElevator.currentFloor >= floors) {
-					curElevator.currentFloor = floors;
-					curElevator.direction = down;
-				} else if (curElevator.currentFloor <= 0) {
-					curElevator.currentFloor = 0;
-					curElevator.direction = up;
-				}
-
-				//TEMP
-				std::cout << "At floor " << curElevator.currentFloor << std::endl;
-
-				// Drop off
-				for (int j = 0; j < curElevator.targetFloors.size(); j++) {
-					if (curElevator.targetFloors[j] == curElevator.currentFloor) {
-						curElevator.targetFloors.erase(curElevator.targetFloors.begin() + j);
-						j--;
-					}
-				}
-
-				/*
-				//TEMP
-				for (int j = 0; j < curElevator.targetFloors.size(); j++) {
-					std::cout << "Passenger : " << curElevator.targetFloors[j] << std::endl;
-				}
-				*/
-
-				//Pick up
+			//Pick up
 				for (int j = 0; j < callStack.size(); j++) {
 					if (callStack[j].FromFloor == curElevator.currentFloor && findCallDir(callStack[j]) == curElevator.direction) {
 
@@ -91,13 +101,6 @@ public:
 
 					}
 				}
-
-				/*
-				//TEMP
-				for (int j = 0; j < curElevator.targetFloors.size(); j++) {
-					std::cout << "Passenger : " << curElevator.targetFloors[j] << std::endl;
-				}
-				*/
 
 				// Calculate new direction
 				if (curElevator.targetFloors.size() == 0) {
@@ -128,7 +131,7 @@ public:
 
 				}
 
-				//Recheck current floor
+			//Recheck current floor
 				for (int j = 0; j < callStack.size(); j++) {
 					if (callStack[j].FromFloor == curElevator.currentFloor && findCallDir(callStack[j]) == curElevator.direction) {
 
@@ -139,48 +142,6 @@ public:
 					}
 				}
 
-				//TEMP
-				for (int j = 0; j < curElevator.targetFloors.size(); j++) {
-					std::cout << "Passenger : " << curElevator.targetFloors[j] << std::endl;
-				}
-				std::cout << curElevator.direction << std::endl;
 
-			}
 
-			//TEMP
-			std::cout << "0 to Cont? ";
-			std::cin >> TerminateSequence;
-
-		}
-
-		//StopElevatorSequence
-
-	}
-
-	Call getNewCall() {
-
-		Call toRet;
-
-		//Add in security checks for invalid values.
-		std::cout << "Enter the passengers current floor. ";
-		std::cin >> toRet.FromFloor;
-
-		std::cout << "Enter the passengers target floor. ";
-		std::cin >> toRet.TargetFloor;
-
-		return toRet;
-
-	}
-
-private:
-	std::vector<Elevator> elevators;
-
-	directions findCallDir(Call call) {
-		if (call.TargetFloor - call.FromFloor > 0) {
-			return up;
-		} else {
-			return down;
-		}
-	}
-
-};
+*/

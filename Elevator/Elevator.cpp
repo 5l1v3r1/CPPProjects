@@ -1,16 +1,30 @@
 #include <vector>
 #include "Elevator.h"
 
-class Elevator {
+Elevator::Elevator(unsigned int capacity) {
+	this->capacity = capacity;
+}
 
-public:
-	unsigned int capacity;
-	unsigned int currentFloor = 0;
-	std::vector<unsigned int> targetFloors;
-	directions direction = indiff;
+void Elevator::moveElevator(const unsigned int maxFloor) {
 
-	Elevator(unsigned int capacity) {
-		this->capacity = capacity;
+	currentFloor += direction;
+	if(currentFloor >= maxFloor) {
+		currentFloor = maxFloor;
+		direction = down;
+	} else if(currentFloor <= 0) {
+		currentFloor = 0;
+		direction = up;
 	}
 
-};
+}
+
+void Elevator::dropOffTargets() {
+
+	for(int i = 0; i < targetFloors.size(); i++) {
+		if(targetFloors[i] == currentFloor) {
+			targetFloors.erase(targetFloors.begin() + i);
+			i--;
+		}
+	}
+
+}

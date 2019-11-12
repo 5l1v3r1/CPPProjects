@@ -11,11 +11,21 @@
 int main() {
 
 	ElevatorManager manager = ElevatorManager(9);
-	manager.addElevator();
 	//manager.addElevator();
-	manager.StartElevatorSequence();
+	//manager.addElevator();
+	//manager.startElevatorSequence();
+	/*
+	Elevator testElev = Elevator(5);
+	testElev.currentFloor = 3;
+	testElev.direction = up;
+	testElev.targetFloors.push_back(4);
+	testElev.targetFloors.push_back(2);
+	testElev.targetFloors.push_back(6);
+	testElev.targetFloors.push_back(4);
 
-	std::cin.get();
+	testElev.moveElevator(9);
+	testElev.dropOffTargets();
+	*/
 
 }
 
