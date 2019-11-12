@@ -24,12 +24,18 @@
     <ClCompile Include="Elevator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Call.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ElevatorManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Elevator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Call.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

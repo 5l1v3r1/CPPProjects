@@ -1,4 +1,3 @@
-#include <vector>
 #include "Elevator.h"
 
 Elevator::Elevator(unsigned int capacity) {
@@ -24,6 +23,20 @@ void Elevator::dropOffTargets() {
 		if(targetFloors[i] == currentFloor) {
 			targetFloors.erase(targetFloors.begin() + i);
 			i--;
+		}
+	}
+
+}
+
+void Elevator::pickUpTargets(std::vector<Call>& callStack){
+
+	for(int j = 0; j < callStack.size(); j++) {
+		if(callStack[j].FromFloor == currentFloor && findCallDir(callStack[j]) == direction) {
+
+			targetFloors.push_back(callStack[j].TargetFloor);
+			callStack.erase(callStack.begin() + j);
+			j--;
+
 		}
 	}
 

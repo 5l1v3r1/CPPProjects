@@ -1,13 +1,9 @@
 #pragma once
 
+#include <iostream>
+#include <vector>
 #include "Elevator.h"
-
-struct Call {
-
-	unsigned int FromFloor;
-	unsigned int TargetFloor;
-
-};
+#include "Call.h"
 
 class ElevatorManager {
 
@@ -27,7 +23,5 @@ public:
 
 private:
 	std::vector<Elevator> elevators;
-
-	directions findCallDir(Call call);
 
 };

@@ -7,6 +7,7 @@
 #include <vector>
 #include "ElevatorManager.h"
 #include "Elevator.h"
+#include "Call.h"
 
 int main() {
 
@@ -25,6 +26,18 @@ int main() {
 
 	testElev.moveElevator(9);
 	testElev.dropOffTargets();
+	
+	std::vector<Call> callStack;
+	manager.addToCallStack(callStack);
+	testElev.pickUpTargets(callStack);
+
+	for(int i = 0; i < testElev.targetFloors.size(); i++){
+		std::cout << testElev.targetFloors[i] << " break" << std::endl;
+	}
+	std::cout << " Callstack ::" << std::endl;
+	for(int i = 0; i < callStack.size(); i++) {
+		std::cout << callStack[i].FromFloor << " break" << std::endl;
+	}
 	*/
 
 }

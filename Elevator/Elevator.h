@@ -1,6 +1,7 @@
 #pragma once
 
-enum directions { down = -1, indiff = 0, up = 1 };
+#include <vector>
+#include "Call.h"
 
 class Elevator {
 
@@ -15,5 +16,7 @@ public:
 	void moveElevator(const unsigned int maxFloor);
 	
 	void dropOffTargets();
+
+	void pickUpTargets(std::vector<Call>& callStack);
 
 };

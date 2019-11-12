@@ -1,6 +1,3 @@
-#include <vector>
-#include <iostream>
-#include "Elevator.h"
 #include "ElevatorManager.h"
 
 ElevatorManager::ElevatorManager(unsigned int floors) {
@@ -33,6 +30,7 @@ void ElevatorManager::startElevatorSequence() {
 			
 			curElevator.moveElevator(floors);
 			curElevator.dropOffTargets();
+			curElevator.pickUpTargets(callStack);
 
 		}
 
@@ -78,30 +76,8 @@ void ElevatorManager::addToCallStack(std::vector<Call>& callStack) {
 
 }
 
-directions ElevatorManager::findCallDir(Call call) {
-
-	if(call.TargetFloor - call.FromFloor > 0) {
-		return up;
-	} else {
-		return down;
-	}
-
-}
-
 // FINISH REFACTOR
 /*
-
-			//Pick up
-				for (int j = 0; j < callStack.size(); j++) {
-					if (callStack[j].FromFloor == curElevator.currentFloor && findCallDir(callStack[j]) == curElevator.direction) {
-
-						curElevator.targetFloors.push_back(callStack[j].TargetFloor);
-						callStack.erase(callStack.begin() + j);
-						j--;
-
-					}
-				}
-
 				// Calculate new direction
 				if (curElevator.targetFloors.size() == 0) {
 

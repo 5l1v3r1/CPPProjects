@@ -118,11 +118,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Call.cpp" />
     <ClCompile Include="Elevator.cpp" />
     <ClCompile Include="ElevatorManager.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Call.h" />
     <ClInclude Include="Elevator.h" />
     <ClInclude Include="ElevatorManager.h" />
   </ItemGroup>
