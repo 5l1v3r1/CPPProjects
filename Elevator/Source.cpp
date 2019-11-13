@@ -13,12 +13,14 @@ int main() {
 
 	ElevatorManager manager = ElevatorManager(9);
 	//manager.addElevator();
-	//manager.addElevator();
-	//manager.startElevatorSequence();
-	/*
+	
 	Elevator testElev = Elevator(5);
 	testElev.currentFloor = 3;
-	testElev.direction = up;
+	testElev.direction = down;
+	manager.addElevator(testElev);
+	manager.startElevatorSequence();
+
+	/*
 	testElev.targetFloors.push_back(4);
 	testElev.targetFloors.push_back(2);
 	testElev.targetFloors.push_back(6);

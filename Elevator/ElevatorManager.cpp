@@ -21,7 +21,10 @@ void ElevatorManager::startElevatorSequence() {
 
 	while(!TerminateSequence) {
 
-		//Calc and stored favoured dir
+		int favoredDirection = 0;
+		for(auto e : elevators) {
+			favoredDirection += e.direction;
+		}
 
 		//Indv Elevator logic
 		for(int i = 0; i < NumberOfElevators; i++) {
@@ -80,11 +83,6 @@ void ElevatorManager::addToCallStack(std::vector<Call>& callStack) {
 /*
 				// Calculate new direction
 				if (curElevator.targetFloors.size() == 0) {
-
-					int favoredDir = 0;
-					for (auto e : elevators) {
-						favoredDir += e.direction;
-					}
 
 					if (favoredDir > 0) {
 						curElevator.direction = down;
