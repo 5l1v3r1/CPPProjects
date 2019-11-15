@@ -21,6 +21,8 @@ void ElevatorManager::startElevatorSequence() {
 
 	while(!TerminateSequence) {
 
+		addToCallStack(callStack);
+
 		int favoredDirection = 0;
 		for(auto e : elevators) {
 			favoredDirection += e.direction;
