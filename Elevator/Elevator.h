@@ -19,4 +19,6 @@ public:
 
 	void pickUpTargets(std::vector<Call>& callStack);
 
+	bool changeDirection(int& favouredDirection);
+
 };

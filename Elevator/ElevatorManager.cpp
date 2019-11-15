@@ -33,9 +33,15 @@ void ElevatorManager::startElevatorSequence() {
 
 			Elevator& curElevator = elevators[i];
 			
+			//std::cout << "Elevator dir " << curElevator.direction << "    " << favoredDirection << std::endl;
+
 			curElevator.moveElevator(floors);
 			curElevator.dropOffTargets();
 			curElevator.pickUpTargets(callStack);
+			if(curElevator.changeDirection(favoredDirection))
+				curElevator.pickUpTargets(callStack);
+
+			//std::cout << "Elevator dir " << curElevator.direction << "    " << favoredDirection << std::endl;
 
 		}
 
@@ -80,44 +86,3 @@ void ElevatorManager::addToCallStack(std::vector<Call>& callStack) {
 	}
 
 }
-
-// FINISH REFACTOR
-/*
-				// Calculate new direction
-				if (curElevator.targetFloors.size() == 0) {
-
-					if (favoredDir > 0) {
-						curElevator.direction = down;
-					} else if (favoredDir < 0) {
-						curElevator.direction = up;
-					} else {
-
-						int callsBelow = 0, callsAbove = 0;
-						for (int i = 0; i < callStack.size(); i++) {
-							if (callStack[i].FromFloor >= curElevator.currentFloor) {
-								callsAbove++;
-							} else {
-								callsBelow++;
-							}
-						}
-
-						curElevator.currentFloor = callsAbove >= callsBelow ? up : down;
-
-					}
-
-				}
-
-			//Recheck current floor
-				for (int j = 0; j < callStack.size(); j++) {
-					if (callStack[j].FromFloor == curElevator.currentFloor && findCallDir(callStack[j]) == curElevator.direction) {
-
-						curElevator.targetFloors.push_back(callStack[j].TargetFloor);
-						callStack.erase(callStack.begin() + j);
-						j--;
-
-					}
-				}
-
-
-
-*/
