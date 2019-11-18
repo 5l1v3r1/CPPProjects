@@ -67,15 +67,33 @@ void ElevatorManager::addToCallStack(std::vector<Call>& callStack) {
 		if(userIn[0] == 'y') {
 
 			Call toAdd;
+			unsigned int hold;
 
-			//Add in security checks for invalid values.
 			//In this case goto could be useful.
 			//Also allow to break from here.
-			std::cout << "Enter the passengers current floor. ";
-			std::cin >> toAdd.FromFloor;
+			//Look into optimizing these and creating functions as I think these could be used elsewhere.
+			//Format the output of the lines to be more friendly to look at
+			std::cout << "Enter the passengers current floor";
+			while((std::cout << " : ") && !(std::cin >> hold) || hold < 1 || hold > floors) {
 
-			std::cout << "Enter the passengers target floor. ";
-			std::cin >> toAdd.TargetFloor;
+				std::cout << "That is not a valid floor.\nEnter a floor between "
+				<< 1 << " and " << floors;
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+			}
+			toAdd.FromFloor = hold;
+
+			std::cout << "Enter the passengers target floor";
+			while((std::cout << " : ") && !(std::cin >> hold) || hold < 1 || hold > floors) {
+
+				std::cout << "That is not a valid floor.\nEnter a floor between "
+				<< 1 << " and " << floors;
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+			}
+			toAdd.TargetFloor = hold;
 
 			callStack.emplace_back(toAdd);
 

@@ -10,8 +10,8 @@ void Elevator::moveElevator(const unsigned int maxFloor) {
 	if(currentFloor >= maxFloor) {
 		currentFloor = maxFloor;
 		direction = down;
-	} else if(currentFloor <= 0) {
-		currentFloor = 0;
+	} else if(currentFloor <= 1) {
+		currentFloor = 1;
 		direction = up;
 	}
 

@@ -11,7 +11,7 @@
 
 int main() {
 
-	ElevatorManager manager = ElevatorManager(9);
+	ElevatorManager manager = ElevatorManager(10);
 	//manager.addElevator();
 	
 	Elevator testElev = Elevator(5);

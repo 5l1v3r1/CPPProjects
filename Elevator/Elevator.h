@@ -7,7 +7,7 @@ class Elevator {
 
 public:
 	unsigned int capacity;
-	unsigned int currentFloor = 0;
+	unsigned int currentFloor = 1;
 	std::vector<unsigned int> targetFloors;
 	directions direction = up;
 
