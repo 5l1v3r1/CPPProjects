@@ -30,12 +30,12 @@ void Elevator::dropOffTargets() {
 
 void Elevator::pickUpTargets(std::vector<Call>& callStack){
 
-	for(int j = 0; j < callStack.size(); j++) {
-		if(callStack[j].FromFloor == currentFloor && findCallDir(callStack[j]) == direction) {
+	for(int i = 0; i < callStack.size(); i++) {
+		if(callStack[i].FromFloor == currentFloor && findCallDir(callStack[i]) == direction) {
 
-			targetFloors.push_back(callStack[j].TargetFloor);
-			callStack.erase(callStack.begin() + j);
-			j--;
+			targetFloors.push_back(callStack[i].TargetFloor);
+			callStack.erase(callStack.begin() + i);
+			i--;
 
 		}
 	}
