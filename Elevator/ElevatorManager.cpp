@@ -57,7 +57,6 @@ void ElevatorManager::startElevatorSequence() {
 
 void ElevatorManager::addToCallStack(std::vector<Call>& callStack) {
 
-	//Assume all are valid, though if diff is 0 it should be ok.
 	while(true) {
 
 		std::cout << "Would you like to add a new call? (Y/N) ";
@@ -84,8 +83,10 @@ void ElevatorManager::addToCallStack(std::vector<Call>& callStack) {
 			}
 			toAdd.FromFloor = hold;
 
+			//Add special message for inputing same target floor as the from floor.
 			std::cout << "Enter the passengers target floor";
-			while((std::cout << " : ") && !(std::cin >> hold) || hold < 1 || hold > floors) {
+			while((std::cout << " : ") && !(std::cin >> hold) || hold < 1 || hold > floors
+			|| hold == toAdd.FromFloor) {
 
 				std::cout << "That is not a valid floor.\nEnter a floor between "
 				<< 1 << " and " << floors;
