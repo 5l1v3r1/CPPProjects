@@ -31,7 +31,7 @@ void Elevator::dropOffTargets() {
 void Elevator::pickUpTargets(std::vector<Call>& callStack){
 
 	for(int i = 0; i < callStack.size(); i++) {
-		if(callStack[i].FromFloor == currentFloor && findCallDir(callStack[i]) == direction) {
+		if (callStack[i].FromFloor == currentFloor && findCallDir(callStack[i]) == direction) {
 
 			targetFloors.push_back(callStack[i].TargetFloor);
 			callStack.erase(callStack.begin() + i);
@@ -67,7 +67,7 @@ bool Elevator::changeDirection(int& favouredDirection) {
 	} else {
 		
 		//TEMP
-		if (direction) {
+		if(direction) {
 			direction = down;
 		} else {
 			direction = up;

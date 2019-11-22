@@ -2,6 +2,9 @@
 
 ElevatorManager::ElevatorManager(unsigned int floors) {
 	this->floors = floors;
+
+	std::cout << "Welcome to your new elevator manager." << std::endl;
+
 }
 
 void ElevatorManager::addElevator(Elevator toAdd) {
@@ -13,6 +16,11 @@ void ElevatorManager::addElevator(unsigned int capacity = 10) {
 }
 
 void ElevatorManager::startElevatorSequence() {
+
+	if(elevators.size() <= 0) {
+		std::cout << "Error, You have not made any elevators." << std::endl;
+		return;
+	}
 
 	const int NumberOfElevators = elevators.size();
 	bool TerminateSequence = false;
