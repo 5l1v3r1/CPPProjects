@@ -3,7 +3,7 @@
 ElevatorManager::ElevatorManager(unsigned int floors) {
 	this->floors = floors;
 
-	std::cout << "Welcome to your new elevator manager." << std::endl;
+	std::cout << "Welcome to your new elevator manager." << std::endl << std::endl;
 
 }
 
@@ -41,20 +41,16 @@ void ElevatorManager::startElevatorSequence() {
 
 			Elevator& curElevator = elevators[i];
 			
-			//std::cout << "Elevator dir " << curElevator.direction << "    " << favoredDirection << std::endl;
-
 			curElevator.moveElevator(floors);
 			curElevator.dropOffTargets();
 			curElevator.pickUpTargets(callStack);
 			if(curElevator.changeDirection(favoredDirection))
 				curElevator.pickUpTargets(callStack);
 
-			//std::cout << "Elevator dir " << curElevator.direction << "    " << favoredDirection << std::endl;
-
 		}
 
 		//TEMP
-		std::cout << "Continue sequence? (1/0) ";
+		std::cout << std::endl << "Continue sequence? (1/0) ";
 		std::cin >> TerminateSequence;
 		TerminateSequence = !TerminateSequence;
 		//ENDTEMP
@@ -109,6 +105,8 @@ void ElevatorManager::addToCallStack(std::vector<Call>& callStack) {
 		} else {
 			break;
 		}
+
+		std::cout << std::endl;
 
 	}
 

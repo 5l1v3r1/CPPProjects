@@ -16,7 +16,7 @@ public:
 
 	void addElevator(Elevator toAdd);
 
-	void addElevator(unsigned int capacity);
+	void addElevator(unsigned int capacity = 10);
 
 	void startElevatorSequence();
 
