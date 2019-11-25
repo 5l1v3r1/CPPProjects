@@ -6,7 +6,8 @@ struct Call {
 
 	unsigned int FromFloor;
 	unsigned int TargetFloor;
+	directions direction = indiff;
 
 };
 
-directions findCallDir(Call call);
+directions getCallDir(Call call);

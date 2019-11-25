@@ -11,7 +11,7 @@ void ElevatorManager::addElevator(Elevator toAdd) {
 	elevators.push_back(toAdd);
 }
 
-void ElevatorManager::addElevator(unsigned int capacity = 10) {
+void ElevatorManager::addElevator(unsigned int capacity) {
 	elevators.emplace_back(Elevator(capacity));
 }
 

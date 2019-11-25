@@ -1,6 +1,9 @@
 #include "Call.h"
 
-directions findCallDir(Call call) {
+directions getCallDir(Call call) {
+
+	if(call.direction != indiff)
+		return call.direction;
 
 	if(call.TargetFloor - call.FromFloor > 0) {
 		return up;
