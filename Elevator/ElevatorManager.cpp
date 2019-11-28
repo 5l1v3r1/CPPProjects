@@ -49,6 +49,8 @@ void ElevatorManager::startElevatorSequence() {
 
 		}
 
+		drawSequence(elevators, callStack);
+
 		//TEMP
 		std::cout << std::endl << "Continue sequence? (1/0) ";
 		std::cin >> TerminateSequence;
@@ -103,11 +105,29 @@ void ElevatorManager::addToCallStack(std::vector<Call>& callStack) {
 			callStack.emplace_back(toAdd);
 
 		} else {
+			std::cout << std::endl;
 			break;
 		}
 
 		std::cout << std::endl;
 
+	}
+
+}
+
+void ElevatorManager::drawSequence(std::vector<Elevator> elevators, std::vector<Call> callStack) {
+
+	// In future the elevators may have more detail in which case
+	// more than `floors` will be needed.
+	// `std::endl`'s will be added while printing.
+	std::string toPrint[floors];
+
+	// EX : | e1 | -- | 
+	int numElevator = elevators.size();
+	// Spaces left for elev : numElevators * 4 + numElevators + 1
+
+	for(auto str : toPrint){
+		std::cout << str << std::endl;
 	}
 
 }
