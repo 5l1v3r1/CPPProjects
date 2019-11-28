@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <limits>
+#include <math.h>
 #include "Elevator.h"
 #include "Call.h"
 

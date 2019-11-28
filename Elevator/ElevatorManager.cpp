@@ -117,17 +117,36 @@ void ElevatorManager::addToCallStack(std::vector<Call>& callStack) {
 
 void ElevatorManager::drawSequence(std::vector<Elevator> elevators, std::vector<Call> callStack) {
 
-	// In future the elevators may have more detail in which case
+	// In future the elevators may have more detail in which case.
 	// more than `floors` will be needed.
-	// `std::endl`'s will be added while printing.
-	std::string toPrint[floors];
+	
+	/*
+		 Calls +--------------+ Elevators
+		    
+		From 2 to 7         10 | e1 | -- |
+		From 6 to 8          9 | -- | -- |
+		From 1 to 3          8 | -- | e2 |
+		...
+		From 1 to 4          0 | -- | -- |
+		From 6 to 3            ===========
+	*/
 
-	// EX : | e1 | -- | 
-	int numElevator = elevators.size();
-	// Spaces left for elev : numElevators * 4 + numElevators + 1
+	std::string strCalls[floors];
+	std::string strElevators[floors];
 
-	for(auto str : toPrint){
-		std::cout << str << std::endl;
+	int spaceForElevators = elevators.size() * 4 + elevators.size() + 1;
+	int spaceForCalls = 9 + floor(log10(floors) + 1) * 2; // Chars and spaces + digits
+
+	// Calls
+
+	// Elevators
+
+	// Printing
+	std::cout << " Calls " << "+" << std::string(20, '-') << "+" 
+	<< " Elevators" << std::endl << std::endl;
+
+	for(int i = 0; i < floors; i++){
+		std::cout << strCalls[i] << strElevators[i] << std::endl;
 	}
 
 }
