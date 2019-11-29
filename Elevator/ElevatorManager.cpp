@@ -116,37 +116,55 @@ void ElevatorManager::addToCallStack(std::vector<Call>& callStack) {
 }
 
 void ElevatorManager::drawSequence(std::vector<Elevator> elevators, std::vector<Call> callStack) {
-
-	// In future the elevators may have more detail in which case.
-	// more than `floors` will be needed.
 	
 	/*
 		 Calls +--------------+ Elevators
 		    
 		From 2 to 7         10 | e1 | -- |
 		From 6 to 8          9 | -- | -- |
-		From 1 to 3          8 | -- | e2 |
+		From 1 to 10         8 | -- | e2 |
 		...
-		From 1 to 4          0 | -- | -- |
+		From 1 to 4          1 | -- | -- |
 		From 6 to 3            ===========
 	*/
 
-	std::string strCalls[floors];
+	std::string strCalls[callStack.size()];
 	std::string strElevators[floors];
 
 	int spaceForElevators = elevators.size() * 4 + elevators.size() + 1;
 	int spaceForCalls = 9 + floor(log10(floors) + 1) * 2; // Chars and spaces + digits
 
 	// Calls
+	for(int i = 0; i < callStack.size(); i++) {
 
+		strCalls[i] = "From " + std::to_string(callStack[i].FromFloor) 
+		+ " to " + std::to_string(callStack[i].TargetFloor);
+		while(strCalls[i].size() < spaceForCalls) {
+			strCalls[i] += " ";
+		}
+
+	}
+/*
 	// Elevators
+	for(int i = floors; i < 0; i--) {
+
+		std::string toAdd = "";
+		while(floor(log10(floors) + 1) - floor(log10(i) + 1) > 0) {
+			toAdd += "";
+		}
+		toAdd += std::to_string(i) + " ";
+
+	}
+*/
 
 	// Printing
 	std::cout << " Calls " << "+" << std::string(20, '-') << "+" 
 	<< " Elevators" << std::endl << std::endl;
 
-	for(int i = 0; i < floors; i++){
-		std::cout << strCalls[i] << strElevators[i] << std::endl;
+	for(int i = 0; i < (std::max((int)strCalls->size(), (int)floors + 1)); i++) {
+		std::cout << 
+		(i < strCalls->size() ? strCalls[i] : "") 
+		<< /*strElevators[i] << */std::endl;
 	}
 
 }
