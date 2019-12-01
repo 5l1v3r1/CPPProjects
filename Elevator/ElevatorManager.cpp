@@ -52,9 +52,14 @@ void ElevatorManager::startElevatorSequence() {
 		drawSequence(elevators, callStack);
 
 		//TEMP
-		std::cout << std::endl << "Continue sequence? (1/0) ";
-		std::cin >> TerminateSequence;
-		TerminateSequence = !TerminateSequence;
+		std::cout << std::endl << "Continue sequence? (Y/N) ";
+		std::string userIn;
+		std::cin >> userIn;
+
+		if(userIn[0] == 'y')
+			TerminateSequence = false;
+		else 
+			TerminateSequence = true;
 		//ENDTEMP
 
 	}
