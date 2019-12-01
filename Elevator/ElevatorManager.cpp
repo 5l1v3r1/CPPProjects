@@ -148,6 +148,9 @@ void ElevatorManager::drawSequence(std::vector<Elevator> elevators, std::vector<
 	}
 
 	// Elevators --------------------------------------------------
+	strElevators.emplace_back(std::string(digitsOfFloor + 1, ' ') 
+	+ std::string(spaceForElevators - 1 - digitsOfFloor, '='));
+
 	for(int i = floors; i > 0; i--) {
 
 		std::string toAdd = std::to_string(i);
@@ -174,20 +177,27 @@ void ElevatorManager::drawSequence(std::vector<Elevator> elevators, std::vector<
 	+ std::string(spaceForElevators - 1 - digitsOfFloor, '='));
 
 	// Printing --------------------------------------------------
-	std::cout << " Calls " << "+" << std::string(20, '-') << "+" 
-	<< " Elevators" << std::endl << std::endl;
+	int middleSpace = 10;
 
-	// TEMP
-	for(auto call : strElevators){
-		std::cout << call << "  " << call.size() << std::endl;
-	}
+	std::cout << " Calls +" 
+	<< std::string((spaceForCalls + middleSpace + spaceForElevators) - 20, '-') 
+	<< "+ Elevators" << std::endl << std::endl;
 
-/*
-	int maxIterations = std::max((int)strCalls->size(), (int)floors + 1);
+	int maxIterations = std::max(strCalls.size(), strElevators.size());
 	for(int i = 0; i < maxIterations; i++) {
-		std::cout << 
-		(i < strCalls->size() ? strCalls[i] : "") 
-		<< i << std::endl;
+		
+		if(i < strCalls.size()) {
+			std::cout << strCalls[i];
+		} else {
+			std::cout << std::string(spaceForCalls, ' ');
+		}
+
+		if(i < strElevators.size()) {
+			std::cout << std::string(middleSpace, ' ') << strElevators[i];
+		}
+
+		std::cout << std::endl;
+
 	}
-*/
+
 }
