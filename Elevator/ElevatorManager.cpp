@@ -131,10 +131,11 @@ void ElevatorManager::drawSequence(std::vector<Elevator> elevators, std::vector<
 	std::vector<std::string> strCalls;
 	std::vector<std::string> strElevators;
 
-	int spaceForElevators = elevators.size() * 4 + elevators.size() + 1;
-	int spaceForCalls = 9 + floor(log10(floors) + 1) * 2; // Chars and spaces + digits
+	int digitsOfFloor = floor(log10(floors) + 1);
+	int spaceForElevators = elevators.size() * 4 + elevators.size() + 2 + digitsOfFloor;
+	int spaceForCalls = 9 + digitsOfFloor * 2; // Chars and spaces + digits
 
-	// Calls
+	// Calls --------------------------------------------------
 	for(int i = 0; i < callStack.size(); i++) {
 
 		strCalls.emplace_back("From " + std::to_string(callStack[i].FromFloor)
@@ -146,11 +147,38 @@ void ElevatorManager::drawSequence(std::vector<Elevator> elevators, std::vector<
 
 	}
 
-	// Printing
+	// Elevators --------------------------------------------------
+	for(int i = floors; i > 0; i--) {
+
+		std::string toAdd = std::to_string(i);
+		std::string toEdit = "";
+		for(int j = 0; j < elevators.size(); j++) {
+			if(elevators[j].currentFloor == i){
+				toEdit += " | e" + std::to_string(j + 1);
+			} else {
+				toEdit += " | --";
+			}
+		}
+		toEdit += " |";
+
+		toAdd += toEdit;
+		while(toAdd.size() < spaceForElevators){
+			toAdd = " " + toAdd;
+		}
+
+		strElevators.emplace_back(toAdd);
+
+	}
+	
+	strElevators.emplace_back(std::string(digitsOfFloor + 1, ' ') 
+	+ std::string(spaceForElevators - 1 - digitsOfFloor, '='));
+
+	// Printing --------------------------------------------------
 	std::cout << " Calls " << "+" << std::string(20, '-') << "+" 
 	<< " Elevators" << std::endl << std::endl;
 
-	for(auto call : strCalls){
+	// TEMP
+	for(auto call : strElevators){
 		std::cout << call << "  " << call.size() << std::endl;
 	}
 

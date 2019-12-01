@@ -13,7 +13,7 @@ int main() {
 
 	ElevatorManager manager = ElevatorManager(10);
 	manager.addElevator();
-	//manager.addElevator();
+	manager.addElevator();
 	manager.startElevatorSequence();
 
 	/* TESTS
