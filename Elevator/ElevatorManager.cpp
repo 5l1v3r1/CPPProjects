@@ -1,8 +1,8 @@
 #include "ElevatorManager.h"
 
 ElevatorManager::ElevatorManager(unsigned int floors) {
+	
 	this->floors = floors;
-
 	std::cout << "Welcome to your new elevator manager." << std::endl << std::endl;
 
 }
@@ -51,7 +51,6 @@ void ElevatorManager::startElevatorSequence() {
 
 		drawSequence(elevators, callStack);
 
-		//TEMP
 		std::cout << std::endl << "Continue sequence? (Y/N) ";
 		std::string userIn;
 		std::cin >> userIn;
@@ -60,7 +59,6 @@ void ElevatorManager::startElevatorSequence() {
 			TerminateSequence = false;
 		else 
 			TerminateSequence = true;
-		//ENDTEMP
 
 	}
 

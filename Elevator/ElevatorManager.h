@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <math.h>
+#include <limits>
 #include "Elevator.h"
 #include "Call.h"
 
@@ -20,12 +21,11 @@ public:
 
 	void startElevatorSequence();
 
-	//From here on can likely be private.
+private:
+	std::vector<Elevator> elevators;
+
 	void addToCallStack(std::vector<Call> &callStack);
 
 	void drawSequence(std::vector<Elevator> elevators, std::vector<Call> callStack);
-
-private:
-	std::vector<Elevator> elevators;
 
 };
