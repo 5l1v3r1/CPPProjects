@@ -43,7 +43,7 @@ void Elevator::pickUpTargets(std::vector<Call>& callStack){
 }
 
 //Returns true if the direction was changed.
-bool Elevator::changeDirection(int& favouredDirection) {
+bool Elevator::changeDirection(int& favouredDirection, std::vector<Call>& callStack) {
 
 	if(targetFloors.size() > 0)
 		return false;
@@ -54,6 +54,11 @@ bool Elevator::changeDirection(int& favouredDirection) {
 	//Also add usage of the indiff direction for these elevators.
 	//favouredDirection needs change by 2 to counteract the effect the elevator originally had on the number.
 
+	//Checkout picking up calls with wrong direciton. 
+	//Draw elevators before moving the first time.
+	//Implement the call render note left in drawSequence().
+
+	/*
 	if(favouredDirection > 0) {
 
 		direction = down;
@@ -75,6 +80,33 @@ bool Elevator::changeDirection(int& favouredDirection) {
 
 		favouredDirection += direction * 2;
 
+	}
+	*/
+
+	int callsAbove = 0, callsBelow = 0;
+	int closestCallA = std::numeric_limits<int>::max();
+	int closestCallB = std::numeric_limits<int>::min();
+
+	for(auto call : callStack) {
+
+		if(call.FromFloor > currentFloor) {
+			callsAbove++;
+			if(call.FromFloor < closestCallA)
+				closestCallA = call.FromFloor;
+		} else {
+			callsBelow++;
+			if(call.FromFloor > closestCallB)
+				closestCallB = call.FromFloor;
+		}
+
+	}
+	
+	if(callsAbove > callsBelow) {
+		direction = up;
+		targetFloor = closestCallA;
+	} else {
+		direction = down;
+		targetFloor = closestCallB;
 	}
 
 	return true;

@@ -44,7 +44,7 @@ void ElevatorManager::startElevatorSequence() {
 			curElevator.moveElevator(floors);
 			curElevator.dropOffTargets();
 			curElevator.pickUpTargets(callStack);
-			if(curElevator.changeDirection(favoredDirection))
+			if(curElevator.changeDirection(favoredDirection, callStack))
 				curElevator.pickUpTargets(callStack);
 
 		}
@@ -118,6 +118,7 @@ void ElevatorManager::addToCallStack(std::vector<Call>& callStack) {
 
 }
 
+// TODO Add marker for which elevator a call is currently in.
 void ElevatorManager::drawSequence(std::vector<Elevator> elevators, std::vector<Call> callStack) {
 	
 	/*
