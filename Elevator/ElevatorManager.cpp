@@ -55,7 +55,7 @@ void ElevatorManager::startElevatorSequence() {
 		std::string userIn;
 		std::cin >> userIn;
 
-		if(userIn[0] == 'y')
+		if(std::tolower(userIn[0]) == 'y')
 			TerminateSequence = false;
 		else 
 			TerminateSequence = true;
@@ -72,7 +72,7 @@ void ElevatorManager::addToCallStack(std::vector<Call>& callStack) {
 		std::string userIn;
 		std::cin >> userIn;
 
-		if(userIn[0] == 'y') {
+		if(std::tolower(userIn[0]) == 'y') {
 
 			Call toAdd;
 			unsigned int hold;
