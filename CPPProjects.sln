@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RiverProblem", "RiverProble
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Elevator", "Elevator\Elevator.vcxproj", "{84C542EA-B68D-4F3E-85AC-076911259CCE}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PasswordCracker", "PasswordCracker\PasswordCracker.vcxproj", "{A0903B1E-ED4D-4A2F-A11C-7DFB8C95721F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{84C542EA-B68D-4F3E-85AC-076911259CCE}.Release|x64.Build.0 = Debug|x64
 		{84C542EA-B68D-4F3E-85AC-076911259CCE}.Release|x86.ActiveCfg = Release|Win32
 		{84C542EA-B68D-4F3E-85AC-076911259CCE}.Release|x86.Build.0 = Release|Win32
+		{A0903B1E-ED4D-4A2F-A11C-7DFB8C95721F}.Debug|x64.ActiveCfg = Debug|x64
+		{A0903B1E-ED4D-4A2F-A11C-7DFB8C95721F}.Debug|x64.Build.0 = Debug|x64
+		{A0903B1E-ED4D-4A2F-A11C-7DFB8C95721F}.Debug|x86.ActiveCfg = Debug|Win32
+		{A0903B1E-ED4D-4A2F-A11C-7DFB8C95721F}.Debug|x86.Build.0 = Debug|Win32
+		{A0903B1E-ED4D-4A2F-A11C-7DFB8C95721F}.Release|x64.ActiveCfg = Release|x64
+		{A0903B1E-ED4D-4A2F-A11C-7DFB8C95721F}.Release|x64.Build.0 = Release|x64
+		{A0903B1E-ED4D-4A2F-A11C-7DFB8C95721F}.Release|x86.ActiveCfg = Release|Win32
+		{A0903B1E-ED4D-4A2F-A11C-7DFB8C95721F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
