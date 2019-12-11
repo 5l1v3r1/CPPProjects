@@ -48,41 +48,6 @@ bool Elevator::changeDirection(int& favouredDirection, std::vector<Call>& callSt
 	if(targetFloors.size() > 0)
 		return false;
 
-	//Logic should use callstack more than the other elevators.
-	//For now it will be soley based on the other elevators just to speed up the build.
-	//Implement higher level logic after graphics and base functionality are all in.
-	//Also add usage of the indiff direction for these elevators.
-	//favouredDirection needs change by 2 to counteract the effect the elevator originally had on the number.
-
-	//Checkout picking up calls with wrong direciton. 
-	//Draw elevators before moving the first time.
-	//Implement the call render note left in drawSequence().
-
-	/*
-	if(favouredDirection > 0) {
-
-		direction = down;
-		favouredDirection -= 2;
-
-	} else if(favouredDirection < 0) {
-		
-		direction = up;
-		favouredDirection += 2;
-	
-	} else {
-		
-		//TEMP
-		if(direction) {
-			direction = down;
-		} else {
-			direction = up;
-		}
-
-		favouredDirection += direction * 2;
-
-	}
-	*/
-
 	int callsAbove = 0, callsBelow = 0;
 	int closestCallA = std::numeric_limits<int>::max();
 	int closestCallB = std::numeric_limits<int>::min();
@@ -108,6 +73,8 @@ bool Elevator::changeDirection(int& favouredDirection, std::vector<Call>& callSt
 		direction = down;
 		targetFloor = closestCallB;
 	}
+	if(callsAbove == 0 && callsBelow == 0)
+		direction = indiff;
 
 	return true;
 

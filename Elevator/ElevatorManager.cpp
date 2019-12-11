@@ -27,6 +27,9 @@ void ElevatorManager::startElevatorSequence() {
 
 	std::vector<Call> callStack;
 
+	drawSequence(elevators, callStack);
+	std::cout << std::endl;
+
 	while(!TerminateSequence) {
 
 		addToCallStack(callStack);
@@ -51,6 +54,7 @@ void ElevatorManager::startElevatorSequence() {
 
 		drawSequence(elevators, callStack);
 
+		// Auto option that updates every X seconds
 		std::cout << std::endl << "Continue sequence? (Y/N) ";
 		std::string userIn;
 		std::cin >> userIn;
