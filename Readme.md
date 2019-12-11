@@ -10,7 +10,7 @@ This is a collection of C++ projects
 
 1. [Elevator](./Elevator)
 
-1. [Password Cracker](./) (Not Started)
+1. [Password Cracker](./PasswordCracker)
 
 1. [Tiling Estimator](./) (Not Started)
 
