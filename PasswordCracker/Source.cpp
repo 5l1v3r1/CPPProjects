@@ -12,7 +12,7 @@
 	Add in some profiling to keep track of time, Cherno
 */
 
-int incrementString(std::string& toEdit, int index, bool logActivity);
+int incrementString(std::string& toEdit, int index);
 
 std::string crackPassword(std::string password, bool logActivity, bool logTime) {
 
@@ -22,12 +22,23 @@ std::string crackPassword(std::string password, bool logActivity, bool logTime) 
 
 	// Change max size based on if we can know the length
 	int maxSize = 5;
-	std::string toRet = std::string(maxSize, '!');
+	
+	for(int i = 1; i <= maxSize; i++){
 
-	while(toRet != password){
-		incrementString(toRet, maxSize, logActivity);
-		if(logActivity)
-			std::cout << toRet << std::endl;
+		std::string toRet = std::string(i, '!');
+		
+		while(toRet != std::string(i, '~')){
+
+			incrementString(toRet, i);
+
+			if(logActivity)
+				std::cout << toRet << std::endl;
+
+			if(password == toRet)
+				return toRet;
+
+		}
+
 	}
 
 	return "Could not crack :(";
@@ -35,13 +46,13 @@ std::string crackPassword(std::string password, bool logActivity, bool logTime) 
 }
 
 // Prototype, I'd rather this use individual chars than whole strings
-int incrementString(std::string& toEdit, int index, bool logActivity) {
+int incrementString(std::string& toEdit, int index) {
 
 	if(index < 0) {
 		return 1;
 	}
 
-	toEdit[index] += incrementString(toEdit, index - 1, logActivity);
+	toEdit[index] += incrementString(toEdit, index - 1);
 
 	// ASCII range for all chars 33 - 126 perhaps take some characters out
 	if(toEdit[index] > 126) {
@@ -71,7 +82,7 @@ int main() {
 	std::cout << "Cracking the password : " << password << std::endl << std::endl;
 
 	// TEMP
-	std::cout << crackPassword(password, true, false);
+	std::cout << crackPassword(password, logActivity, logTime);
 	std::cin >> logTime;
 
 }
