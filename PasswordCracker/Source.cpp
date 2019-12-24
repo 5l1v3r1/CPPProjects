@@ -35,7 +35,7 @@ std::string crackPassword(std::string password, bool logActivity, bool logTime) 
 				std::cout << toRet << std::endl;
 
 			if(password == toRet)
-				return toRet;
+				return "The password is : " + toRet;
 
 		}
 
@@ -66,23 +66,30 @@ int incrementString(std::string& toEdit, int index) {
 
 int main() {
 
-	std::string password;
-	bool logActivity;
-	bool logTime;
+	bool cont;
 
-	// These will be sanitized later
+	do {
 
-	std::cout << "Please enter the password : ";
-	std::cin >> password;
-	std::cout << "Would you like to log the activity? ";
-	std::cin >> logActivity;
-	std::cout << "Would you like to log time? ";
-	std::cin >> logTime;
+		std::string password;
+		bool logActivity;
+		bool logTime;
 
-	std::cout << "Cracking the password : " << password << std::endl << std::endl;
+		// These will be sanitized later
 
-	// TEMP
-	std::cout << crackPassword(password, logActivity, logTime);
-	std::cin >> logTime;
+		std::cout << "Please enter the password : ";
+		std::cin >> password;
+		std::cout << "Would you like to log the activity? ";
+		std::cin >> logActivity;
+		std::cout << "Would you like to log time? ";
+		std::cin >> logTime;
+
+		std::cout << "Cracking the password : " << password << std::endl << std::endl;
+
+		std::cout << crackPassword(password, logActivity, logTime) << std::endl;
+
+		std::cout << std::endl << "Crack another password? (0/1) ";
+		std::cin >> cont;
+
+	} while(cont);
 
 }
