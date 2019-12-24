@@ -4,16 +4,6 @@
 #include <chrono>
 #include "Cracker.h"
 
-/*
-	Store user password
-	You must include all letters lower and upper case, and the following characters: !@#$%^&*()_
-	Create threaded program to brute force crack the password
-	Optional print out current password
-	Optimize to hell
-
-	Add in some profiling to keep track of time, Cherno
-*/
-
 #define timepoint std::chrono::_V2::system_clock::time_point
 
 std::string determineTimeDifference(timepoint timeOne) {
@@ -23,9 +13,6 @@ std::string determineTimeDifference(timepoint timeOne) {
 	auto timeTwo = std::chrono::high_resolution_clock::now();
 	auto durationS = std::chrono::duration_cast<std::chrono::seconds>(timeTwo - timeOne).count();
 	auto durationMS = std::chrono::duration_cast<std::chrono::milliseconds>(timeTwo - timeOne).count();
-
-	std::cout << durationS << std::endl;
-	std::cout << durationMS << std::endl;
 
 	if(durationS > 0) {
 		toRet += std::to_string(durationS) + " seconds and ";
@@ -99,6 +86,25 @@ int incrementString(std::string& toEdit, int index) {
 
 }
 
+bool getBoolInput(std::string message) {
+
+	std::string hold;
+
+	while(true) {
+		
+		std::cout << message << " (1/0) : ";
+		std::cin >> hold;
+		if(hold == "1" || std::tolower(hold[0]) == 'y')
+			return true;
+		else if(hold == "0" || std::tolower(hold[0]) == 'n')
+			return false;
+		else
+			std::cout << "Please enter a valid boolean." << std::endl;
+
+	}
+
+}
+
 int main() {
 
 	bool cont;
@@ -109,21 +115,17 @@ int main() {
 		bool logActivity;
 		bool logTime;
 
-		// These will be sanitized later
-
-		std::cout << "Please enter the password : ";
+		std::cout << "Please enter the password (current max is 5 characters) : ";
 		std::cin >> password;
-		std::cout << "Would you like to log the activity? ";
-		std::cin >> logActivity;
-		std::cout << "Would you like to log time? ";
-		std::cin >> logTime;
+		
+		logActivity = getBoolInput("Would you like to log the activity?");
+		logTime = getBoolInput("Would you like to log time?");
 
 		std::cout << "Cracking the password : " << password << std::endl << std::endl;
 
-		std::cout << crackPassword(password, logActivity, logTime) << std::endl;
+		std::cout << crackPassword(password, logActivity, logTime) << std::endl << std::endl;
 
-		std::cout << std::endl << "Crack another password? (0/1) ";
-		std::cin >> cont;
+		cont = getBoolInput("Crack another password?");
 
 	} while(cont);
 
