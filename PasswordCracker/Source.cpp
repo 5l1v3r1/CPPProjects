@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <thread>
+#include <chrono>
 #include "Cracker.h"
 
 /*
@@ -12,13 +14,40 @@
 	Add in some profiling to keep track of time, Cherno
 */
 
+#define timepoint std::chrono::_V2::system_clock::time_point
+
+std::string determineTimeDifference(timepoint timeOne) {
+
+	std::string toRet = "Cracking took : ";
+
+	auto timeTwo = std::chrono::high_resolution_clock::now();
+	auto durationS = std::chrono::duration_cast<std::chrono::seconds>(timeTwo - timeOne).count();
+	auto durationMS = std::chrono::duration_cast<std::chrono::milliseconds>(timeTwo - timeOne).count();
+
+	std::cout << durationS << std::endl;
+	std::cout << durationMS << std::endl;
+
+	if(durationS > 0) {
+		toRet += std::to_string(durationS) + " seconds and ";
+		durationMS = durationMS % 1000;
+		if(durationMS > 0)
+			toRet += std::to_string(durationMS) + " milliseconds.";
+	} else 
+		toRet += std::to_string(durationMS) + " milliseconds.";
+
+	return toRet;
+
+}
+
 int incrementString(std::string& toEdit, int index);
 
 std::string crackPassword(std::string password, bool logActivity, bool logTime) {
 
 	std::cout << "Starting Crack" << std::endl;
 
-	// Log Time
+	timepoint timeOne;
+	if(logTime)
+		timeOne = std::chrono::high_resolution_clock::now();
 
 	// Change max size based on if we can know the length
 	int maxSize = 5;
@@ -34,8 +63,14 @@ std::string crackPassword(std::string password, bool logActivity, bool logTime) 
 			if(logActivity)
 				std::cout << toRet << std::endl;
 
-			if(password == toRet)
+			if(password == toRet) {
+
+				if(logTime) {
+					std::cout << determineTimeDifference(timeOne) << std::endl;
+				}
+
 				return "The password is : " + toRet;
+			}
 
 		}
 
