@@ -11,8 +11,10 @@ std::string determineTimeDifference(timepoint timeOne) {
 	std::string toRet = "Cracking took : ";
 
 	auto timeTwo = std::chrono::high_resolution_clock::now();
-	auto durationS = std::chrono::duration_cast<std::chrono::seconds>(timeTwo - timeOne).count();
-	auto durationMS = std::chrono::duration_cast<std::chrono::milliseconds>(timeTwo - timeOne).count();
+	auto durationS = 
+		std::chrono::duration_cast<std::chrono::seconds>(timeTwo - timeOne).count();
+	auto durationMS = 
+		std::chrono::duration_cast<std::chrono::milliseconds>(timeTwo - timeOne).count();
 
 	if(durationS > 0) {
 		toRet += std::to_string(durationS) + " seconds and ";
@@ -27,6 +29,7 @@ std::string determineTimeDifference(timepoint timeOne) {
 }
 
 int incrementString(std::string& toEdit, int index);
+void threadCrack(std::string password, bool& done, int startIndex, int endIndex, bool logActivity);
 
 std::string crackPassword(std::string password, bool logActivity, bool logTime) {
 
@@ -36,10 +39,32 @@ std::string crackPassword(std::string password, bool logActivity, bool logTime) 
 	if(logTime)
 		timeOne = std::chrono::high_resolution_clock::now();
 
+	bool cracked;
+	std::thread threads[8];
+
+	// Needs a better way to delegate sections of the password.
+	// Need a better way to stop threads and find the if it's been cracked
+	for(int i = 0; i < 8; i++) {
+		threads[i] = std::thread(threadCrack, password, std::ref(cracked), 0, 0, logActivity);
+	}
+
+	while(!cracked) {}
+	for(int i = 0; i < 8; i++)
+		threads[i].join();
+
+	if(logTime)
+		std::cout << determineTimeDifference(timeOne) << std::endl;
+
+	return password;
+
+}
+
+void threadCrack(std::string password, bool& done, int startIndex, int endIndex, bool logActivity) {
+
 	// Change max size based on if we can know the length
 	int maxSize = 5;
 	
-	for(int i = 1; i <= maxSize; i++){
+	for(int i = 1; i < maxSize; i++){
 
 		std::string toRet = std::string(i, '!');
 		
@@ -51,19 +76,15 @@ std::string crackPassword(std::string password, bool logActivity, bool logTime) 
 				std::cout << toRet << std::endl;
 
 			if(password == toRet) {
-
-				if(logTime) {
-					std::cout << determineTimeDifference(timeOne) << std::endl;
-				}
-
-				return "The password is : " + toRet;
+				done = true;
+				return;
 			}
 
 		}
 
 	}
 
-	return "Could not crack :(";
+	std::cout << "Thread Failed\n";
 
 }
 
